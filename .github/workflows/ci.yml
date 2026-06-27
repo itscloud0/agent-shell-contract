@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Run unit tests
+        run: python -m unittest discover -s tests
+      - name: Run reference contract suite
+        run: agent-shell-contract run --adapter subprocess-reference
+
+  optional-adapters:
+    name: Optional adapter smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install optional adapters
+        run: python -m pip install -e ".[acp,pydantic-ai-harness]"
+      - name: ACP local terminal adapter
+        run: agent-shell-contract run --adapter acp-local-terminal
+      - name: Pydantic AI Harness adapter smoke
+        run: agent-shell-contract run --adapter pydantic-ai-harness --fixture output-before-exit
+

@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-shell-contract"
+version = "0.1.0"
+description = "Issue-derived shell semantics contract tests for coding-agent shell runners."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Ilia Sorokin" }]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Testing",
+  "Topic :: System :: Shells",
+]
+keywords = [
+  "coding-agent",
+  "shell",
+  "terminal",
+  "process-cleanup",
+  "conformance",
+  "developer-tools",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/itscloud0/agent-shell-contract"
+Issues = "https://github.com/itscloud0/agent-shell-contract/issues"
+Source = "https://github.com/itscloud0/agent-shell-contract"
+
+[project.optional-dependencies]
+acp = ["agent-client-protocol>=0.10.1"]
+pydantic-ai-harness = ["pydantic-ai-harness>=0.1.0"]
+
+[project.scripts]
+agent-shell-contract = "agent_shell_contract.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

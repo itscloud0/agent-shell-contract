@@ -1,0 +1,240 @@
+{
+  "adapter": "pydantic-ai-harness",
+  "capabilities": {
+    "allocates_pty": false,
+    "name": "pydantic-ai-harness",
+    "platform": "darwin",
+    "supports_background": true,
+    "supports_env_override": true,
+    "supports_sticky_cwd": true
+  },
+  "duration_seconds": 2.4639,
+  "platform": "macOS-15.5-arm64-arm-64bit",
+  "python_version": "3.12.11",
+  "results": [
+    {
+      "adapter": "pydantic-ai-harness",
+      "details": [
+        "result: exit=None timed_out=True duration=0.520s"
+      ],
+      "duration_seconds": 0.5201,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.5197,
+          "exit_code": null,
+          "raw": "[Command timed out after 0.5s]",
+          "stderr": "",
+          "stdout": "",
+          "timed_out": true,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "timeout-child-pipe",
+      "status": "PASS",
+      "summary": "timeout returned without hanging on child pipes"
+    },
+    {
+      "adapter": "pydantic-ai-harness",
+      "details": [
+        "result: exit=None timed_out=True duration=0.518s",
+        "child_pid: 23857"
+      ],
+      "duration_seconds": 0.7198,
+      "evidence": {
+        "child_pid": 23857,
+        "result": {
+          "duration_seconds": 0.5182,
+          "exit_code": null,
+          "raw": "[Command timed out after 0.5s]",
+          "stderr": "",
+          "stdout": "",
+          "timed_out": true,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "timeout-process-tree",
+      "status": "PASS",
+      "summary": "timeout terminated the owned process tree"
+    },
+    {
+      "adapter": "pydantic-ai-harness",
+      "details": [
+        "handle: BackgroundHandle(id='5c9a4cb6132f', pid=None, command='/Users/iliasorokin/.cache/uv/builds-v0/.tmpT9tGkd/bin/python -c \\'import http.server\\nimport socketserver\\nsocketserver.TCPServer.allow_reuse_address = True\\nwith socketserver.TCPServer((\"127.0.0.1\", 56000), http.server.SimpleHTTPRequestHandler) as server:\\n    print(\"ASC_SERVER_READY 56000\", flush=True)\\n    server.serve_forever()\\'', raw='Started background command: \\'/Users/iliasorokin/.cache/uv/builds-v0/.tmpT9tGkd/bin/python -c \\\\\\'import http.server\\\\nimport socketserver\\\\nsocketserver.TCPServer.allow_reuse_address = True\\\\nwith socketserver.TCPServer((\"127.0.0.1\", 56000), http.server.SimpleHTTPRequestHandler) as server:\\\\n    print(\"ASC_SERVER_READY 56000\", flush=True)\\\\n    server.serve_forever()\\\\\\'\\'\\nID: 5c9a4cb6132f')",
+        "bg_status: BackgroundStatus(running=True, stdout='ASC_SERVER_READY 56000', stderr='', exit_code=None, raw='[status: running]\\n[stdout]\\nASC_SERVER_READY 56000\\n')",
+        "stop: exit=-15 timed_out=False duration=0.001s",
+        "port: 56000"
+      ],
+      "duration_seconds": 0.0583,
+      "evidence": {
+        "bg_status": {
+          "exit_code": null,
+          "raw": "[status: running]\n[stdout]\nASC_SERVER_READY 56000\n",
+          "running": true,
+          "stderr": "",
+          "stdout": "ASC_SERVER_READY 56000"
+        },
+        "handle": {
+          "command": "/Users/iliasorokin/.cache/uv/builds-v0/.tmpT9tGkd/bin/python -c 'import http.server\nimport socketserver\nsocketserver.TCPServer.allow_reuse_address = True\nwith socketserver.TCPServer((\"127.0.0.1\", 56000), http.server.SimpleHTTPRequestHandler) as server:\n    print(\"ASC_SERVER_READY 56000\", flush=True)\n    server.serve_forever()'",
+          "id": "5c9a4cb6132f",
+          "pid": null,
+          "raw": "Started background command: '/Users/iliasorokin/.cache/uv/builds-v0/.tmpT9tGkd/bin/python -c \\'import http.server\\nimport socketserver\\nsocketserver.TCPServer.allow_reuse_address = True\\nwith socketserver.TCPServer((\"127.0.0.1\", 56000), http.server.SimpleHTTPRequestHandler) as server:\\n    print(\"ASC_SERVER_READY 56000\", flush=True)\\n    server.serve_forever()\\''\nID: 5c9a4cb6132f"
+        },
+        "port": 56000,
+        "stop": {
+          "duration_seconds": 0.0009,
+          "exit_code": -15,
+          "raw": "[stopped: '/Users/iliasorokin/.cache/uv/builds-v0/.tmpT9tGkd/bin/python -c \\'import http.server\\nimport socketserver\\nsocketserver.TCPServer.allow_reuse_address = True\\nwith socketserver.TCPServer((\"127.0.0.1\", 56000), http.server.SimpleHTTPRequestHandler) as server:\\n    print(\"ASC_SERVER_READY 56000\", flush=True)\\n    server.serve_forever()\\'']\n[exit code: -15]\n[stdout]\nASC_SERVER_READY 56000\n",
+          "stderr": "",
+          "stdout": "ASC_SERVER_READY 56000",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "background-server-lifecycle",
+      "status": "PASS",
+      "summary": "background start/check/stop closed the owned port"
+    },
+    {
+      "adapter": "pydantic-ai-harness",
+      "details": [
+        "result: exit=7 timed_out=False duration=0.022s"
+      ],
+      "duration_seconds": 0.0221,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.022,
+          "exit_code": 7,
+          "raw": "[stdout]\nASC_STDOUT_BEFORE_EXIT\n\n[stderr]\nASC_STDERR_BEFORE_EXIT\n\n[exit code: 7]",
+          "stderr": "ASC_STDERR_BEFORE_EXIT",
+          "stdout": "ASC_STDOUT_BEFORE_EXIT",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "output-before-exit",
+      "status": "PASS",
+      "summary": "stdout, stderr, and exit status survived"
+    },
+    {
+      "adapter": "pydantic-ai-harness",
+      "details": [
+        "result: exit=None timed_out=True duration=1.008s"
+      ],
+      "duration_seconds": 1.0076,
+      "evidence": {
+        "result": {
+          "duration_seconds": 1.0075,
+          "exit_code": null,
+          "raw": "[Command timed out after 1.0s]",
+          "stderr": "",
+          "stdout": "",
+          "timed_out": true,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "output-after-kill",
+      "status": "FAIL",
+      "summary": "bounded pre-kill output was lost"
+    },
+    {
+      "adapter": "pydantic-ai-harness",
+      "details": [
+        "before: exit=0 timed_out=False duration=0.040s",
+        "cd_result: exit=0 timed_out=False duration=0.006s",
+        "after: exit=0 timed_out=False duration=0.021s"
+      ],
+      "duration_seconds": 0.0676,
+      "evidence": {
+        "after": {
+          "duration_seconds": 0.021,
+          "exit_code": 0,
+          "raw": "[stdout]\n/private/var/folders/37/kfjv_xyx15q7vzm1v75jbzhm0000gn/T/asc-cwd-isolation-5nq8sbkj\n",
+          "stderr": "",
+          "stdout": "/private/var/folders/37/kfjv_xyx15q7vzm1v75jbzhm0000gn/T/asc-cwd-isolation-5nq8sbkj",
+          "timed_out": false,
+          "unsupported_reason": null
+        },
+        "before": {
+          "duration_seconds": 0.04,
+          "exit_code": 0,
+          "raw": "[stdout]\n/private/var/folders/37/kfjv_xyx15q7vzm1v75jbzhm0000gn/T/asc-cwd-isolation-5nq8sbkj\n",
+          "stderr": "",
+          "stdout": "/private/var/folders/37/kfjv_xyx15q7vzm1v75jbzhm0000gn/T/asc-cwd-isolation-5nq8sbkj",
+          "timed_out": false,
+          "unsupported_reason": null
+        },
+        "cd_result": {
+          "duration_seconds": 0.006,
+          "exit_code": 0,
+          "raw": "(no output)",
+          "stderr": "",
+          "stdout": "",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "cwd-isolation",
+      "status": "PASS",
+      "summary": "adapter declares sticky cwd support; command behavior recorded"
+    },
+    {
+      "adapter": "pydantic-ai-harness",
+      "details": [
+        "result: exit=0 timed_out=False duration=0.040s"
+      ],
+      "duration_seconds": 0.0399,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.0397,
+          "exit_code": 0,
+          "raw": "[stdout]\nASC_ENV_ABSENT\n",
+          "stderr": "",
+          "stdout": "ASC_ENV_ABSENT",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "env-boundary",
+      "status": "PASS",
+      "summary": "explicit env boundary excluded host sentinel"
+    },
+    {
+      "adapter": "pydantic-ai-harness",
+      "details": [
+        "result: exit=0 timed_out=False duration=0.024s"
+      ],
+      "duration_seconds": 0.0243,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.0242,
+          "exit_code": 0,
+          "raw": "[stdout]\nASC_STDIN_TTY=False\nASC_STDOUT_TTY=False\n",
+          "stderr": "",
+          "stdout": "ASC_STDIN_TTY=False\nASC_STDOUT_TTY=False",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "pty-detection",
+      "status": "PASS",
+      "summary": "observed PTY behavior matched adapter declaration"
+    },
+    {
+      "adapter": "pydantic-ai-harness",
+      "details": [],
+      "duration_seconds": 0.0,
+      "evidence": {},
+      "fixture": "windows-tree-termination",
+      "status": "SKIP",
+      "summary": "Windows-only fixture skipped on this host"
+    }
+  ],
+  "started_at": "2026-06-27T09:59:25Z",
+  "summary": {
+    "ERROR": 0,
+    "FAIL": 1,
+    "PASS": 7,
+    "SKIP": 1,
+    "UNSUPPORTED": 0
+  }
+}

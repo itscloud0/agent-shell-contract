@@ -1,0 +1,240 @@
+{
+  "adapter": "codex-app-server",
+  "capabilities": {
+    "allocates_pty": false,
+    "name": "codex-app-server",
+    "platform": "darwin",
+    "supports_background": true,
+    "supports_env_override": true,
+    "supports_sticky_cwd": false
+  },
+  "duration_seconds": 2.4555,
+  "platform": "macOS-15.5-arm64-arm-64bit",
+  "python_version": "3.9.6",
+  "results": [
+    {
+      "adapter": "codex-app-server",
+      "details": [
+        "result: exit=124 timed_out=True duration=0.514s"
+      ],
+      "duration_seconds": 0.5137,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.5136,
+          "exit_code": 124,
+          "raw": "{\"exitCode\": 124, \"stderr\": \"\", \"stdout\": \"ASC_PARENT_READY\\nASC_CHILD_READY\\n\"}",
+          "stderr": "",
+          "stdout": "ASC_PARENT_READY\nASC_CHILD_READY\n",
+          "timed_out": true,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "timeout-child-pipe",
+      "status": "PASS",
+      "summary": "timeout returned without hanging on child pipes"
+    },
+    {
+      "adapter": "codex-app-server",
+      "details": [
+        "result: exit=124 timed_out=True duration=0.506s",
+        "child_pid: 21685"
+      ],
+      "duration_seconds": 0.707,
+      "evidence": {
+        "child_pid": 21685,
+        "result": {
+          "duration_seconds": 0.5058,
+          "exit_code": 124,
+          "raw": "{\"exitCode\": 124, \"stderr\": \"\", \"stdout\": \"ASC_CHILD_PID 21685\\n\"}",
+          "stderr": "",
+          "stdout": "ASC_CHILD_PID 21685\n",
+          "timed_out": true,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "timeout-process-tree",
+      "status": "PASS",
+      "summary": "timeout terminated the owned process tree"
+    },
+    {
+      "adapter": "codex-app-server",
+      "details": [
+        "handle: BackgroundHandle(id='asc-40e36094c9f54f7cb28f52832a0852ac', pid=None, command='/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -c \\'import http.server\\nimport socketserver\\nsocketserver.TCPServer.allow_reuse_address = True\\nwith socketserver.TCPServer((\"127.0.0.1\", 55968), http.server.SimpleHTTPRequestHandler) as server:\\n    print(\"ASC_SERVER_READY 55968\", flush=True)\\n    server.serve_forever()\\'', raw='')",
+        "bg_status: BackgroundStatus(running=True, stdout='ASC_SERVER_READY 55968\\n', stderr='', exit_code=None, raw='')",
+        "stop: exit=-1 timed_out=False duration=0.013s",
+        "port: 55968"
+      ],
+      "duration_seconds": 0.0643,
+      "evidence": {
+        "bg_status": {
+          "exit_code": null,
+          "raw": "",
+          "running": true,
+          "stderr": "",
+          "stdout": "ASC_SERVER_READY 55968\n"
+        },
+        "handle": {
+          "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -c 'import http.server\nimport socketserver\nsocketserver.TCPServer.allow_reuse_address = True\nwith socketserver.TCPServer((\"127.0.0.1\", 55968), http.server.SimpleHTTPRequestHandler) as server:\n    print(\"ASC_SERVER_READY 55968\", flush=True)\n    server.serve_forever()'",
+          "id": "asc-40e36094c9f54f7cb28f52832a0852ac",
+          "pid": null,
+          "raw": ""
+        },
+        "port": 55968,
+        "stop": {
+          "duration_seconds": 0.0126,
+          "exit_code": -1,
+          "raw": "{\"id\": 4, \"result\": {\"exitCode\": -1, \"stderr\": \"\", \"stdout\": \"\"}}",
+          "stderr": "",
+          "stdout": "ASC_SERVER_READY 55968\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "background-server-lifecycle",
+      "status": "PASS",
+      "summary": "background start/check/stop closed the owned port"
+    },
+    {
+      "adapter": "codex-app-server",
+      "details": [
+        "result: exit=7 timed_out=False duration=0.025s"
+      ],
+      "duration_seconds": 0.0253,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.0253,
+          "exit_code": 7,
+          "raw": "{\"exitCode\": 7, \"stderr\": \"ASC_STDERR_BEFORE_EXIT\\n\", \"stdout\": \"ASC_STDOUT_BEFORE_EXIT\\n\"}",
+          "stderr": "ASC_STDERR_BEFORE_EXIT\n",
+          "stdout": "ASC_STDOUT_BEFORE_EXIT\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "output-before-exit",
+      "status": "PASS",
+      "summary": "stdout, stderr, and exit status survived"
+    },
+    {
+      "adapter": "codex-app-server",
+      "details": [
+        "result: exit=124 timed_out=True duration=1.008s"
+      ],
+      "duration_seconds": 1.0082,
+      "evidence": {
+        "result": {
+          "duration_seconds": 1.0082,
+          "exit_code": 124,
+          "raw": "{\"exitCode\": 124, \"stderr\": \"ASC_STDERR_BEFORE_KILL\\n\", \"stdout\": \"ASC_STDOUT_BEFORE_KILL\\n\"}",
+          "stderr": "ASC_STDERR_BEFORE_KILL\n",
+          "stdout": "ASC_STDOUT_BEFORE_KILL\n",
+          "timed_out": true,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "output-after-kill",
+      "status": "PASS",
+      "summary": "bounded pre-kill output remained available"
+    },
+    {
+      "adapter": "codex-app-server",
+      "details": [
+        "before: exit=0 timed_out=False duration=0.024s",
+        "cd_result: exit=0 timed_out=False duration=0.013s",
+        "after: exit=0 timed_out=False duration=0.025s"
+      ],
+      "duration_seconds": 0.0623,
+      "evidence": {
+        "after": {
+          "duration_seconds": 0.0251,
+          "exit_code": 0,
+          "raw": "{\"exitCode\": 0, \"stderr\": \"\", \"stdout\": \"/private/var/folders/37/kfjv_xyx15q7vzm1v75jbzhm0000gn/T/asc-cwd-isolation-zbkuj9hc\\n\"}",
+          "stderr": "",
+          "stdout": "/private/var/folders/37/kfjv_xyx15q7vzm1v75jbzhm0000gn/T/asc-cwd-isolation-zbkuj9hc\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        },
+        "before": {
+          "duration_seconds": 0.0244,
+          "exit_code": 0,
+          "raw": "{\"exitCode\": 0, \"stderr\": \"\", \"stdout\": \"/private/var/folders/37/kfjv_xyx15q7vzm1v75jbzhm0000gn/T/asc-cwd-isolation-zbkuj9hc\\n\"}",
+          "stderr": "",
+          "stdout": "/private/var/folders/37/kfjv_xyx15q7vzm1v75jbzhm0000gn/T/asc-cwd-isolation-zbkuj9hc\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        },
+        "cd_result": {
+          "duration_seconds": 0.0127,
+          "exit_code": 0,
+          "raw": "{\"exitCode\": 0, \"stderr\": \"\", \"stdout\": \"\"}",
+          "stderr": "",
+          "stdout": "",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "cwd-isolation",
+      "status": "PASS",
+      "summary": "cwd stayed isolated across commands"
+    },
+    {
+      "adapter": "codex-app-server",
+      "details": [
+        "result: exit=0 timed_out=False duration=0.038s"
+      ],
+      "duration_seconds": 0.0379,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.0378,
+          "exit_code": 0,
+          "raw": "{\"exitCode\": 0, \"stderr\": \"\", \"stdout\": \"ASC_ENV_ABSENT\\n\"}",
+          "stderr": "",
+          "stdout": "ASC_ENV_ABSENT\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "env-boundary",
+      "status": "PASS",
+      "summary": "explicit env boundary excluded host sentinel"
+    },
+    {
+      "adapter": "codex-app-server",
+      "details": [
+        "result: exit=0 timed_out=False duration=0.023s"
+      ],
+      "duration_seconds": 0.0234,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.0234,
+          "exit_code": 0,
+          "raw": "{\"exitCode\": 0, \"stderr\": \"\", \"stdout\": \"ASC_STDIN_TTY=False\\nASC_STDOUT_TTY=False\\n\"}",
+          "stderr": "",
+          "stdout": "ASC_STDIN_TTY=False\nASC_STDOUT_TTY=False\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "pty-detection",
+      "status": "PASS",
+      "summary": "observed PTY behavior matched adapter declaration"
+    },
+    {
+      "adapter": "codex-app-server",
+      "details": [],
+      "duration_seconds": 0.0,
+      "evidence": {},
+      "fixture": "windows-tree-termination",
+      "status": "SKIP",
+      "summary": "Windows-only fixture skipped on this host"
+    }
+  ],
+  "started_at": "2026-06-27T09:59:08Z",
+  "summary": {
+    "ERROR": 0,
+    "FAIL": 0,
+    "PASS": 8,
+    "SKIP": 1,
+    "UNSUPPORTED": 0
+  }
+}

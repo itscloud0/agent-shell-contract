@@ -1,0 +1,240 @@
+{
+  "adapter": "acp-local-terminal",
+  "capabilities": {
+    "allocates_pty": false,
+    "name": "acp-local-terminal",
+    "platform": "darwin",
+    "supports_background": true,
+    "supports_env_override": true,
+    "supports_sticky_cwd": false
+  },
+  "duration_seconds": 2.3984,
+  "platform": "macOS-15.5-arm64-arm-64bit",
+  "python_version": "3.12.11",
+  "results": [
+    {
+      "adapter": "acp-local-terminal",
+      "details": [
+        "result: exit=-15 timed_out=True duration=0.506s"
+      ],
+      "duration_seconds": 0.5057,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.5057,
+          "exit_code": -15,
+          "raw": "",
+          "stderr": "",
+          "stdout": "ASC_PARENT_READY\nASC_CHILD_READY\n",
+          "timed_out": true,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "timeout-child-pipe",
+      "status": "PASS",
+      "summary": "timeout returned without hanging on child pipes"
+    },
+    {
+      "adapter": "acp-local-terminal",
+      "details": [
+        "result: exit=-15 timed_out=True duration=0.505s",
+        "child_pid: 21895"
+      ],
+      "duration_seconds": 0.7065,
+      "evidence": {
+        "child_pid": 21895,
+        "result": {
+          "duration_seconds": 0.5052,
+          "exit_code": -15,
+          "raw": "",
+          "stderr": "",
+          "stdout": "ASC_CHILD_PID 21895\n",
+          "timed_out": true,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "timeout-process-tree",
+      "status": "PASS",
+      "summary": "timeout terminated the owned process tree"
+    },
+    {
+      "adapter": "acp-local-terminal",
+      "details": [
+        "handle: BackgroundHandle(id='terminal-3', pid=None, command='/Users/iliasorokin/.cache/uv/builds-v0/.tmp7uQVly/bin/python -c \\'import http.server\\nimport socketserver\\nsocketserver.TCPServer.allow_reuse_address = True\\nwith socketserver.TCPServer((\"127.0.0.1\", 55973), http.server.SimpleHTTPRequestHandler) as server:\\n    print(\"ASC_SERVER_READY 55973\", flush=True)\\n    server.serve_forever()\\'', raw='')",
+        "bg_status: BackgroundStatus(running=True, stdout='ASC_SERVER_READY 55973\\n', stderr='', exit_code=None, raw='')",
+        "stop: exit=-15 timed_out=False duration=0.002s",
+        "port: 55973"
+      ],
+      "duration_seconds": 0.0549,
+      "evidence": {
+        "bg_status": {
+          "exit_code": null,
+          "raw": "",
+          "running": true,
+          "stderr": "",
+          "stdout": "ASC_SERVER_READY 55973\n"
+        },
+        "handle": {
+          "command": "/Users/iliasorokin/.cache/uv/builds-v0/.tmp7uQVly/bin/python -c 'import http.server\nimport socketserver\nsocketserver.TCPServer.allow_reuse_address = True\nwith socketserver.TCPServer((\"127.0.0.1\", 55973), http.server.SimpleHTTPRequestHandler) as server:\n    print(\"ASC_SERVER_READY 55973\", flush=True)\n    server.serve_forever()'",
+          "id": "terminal-3",
+          "pid": null,
+          "raw": ""
+        },
+        "port": 55973,
+        "stop": {
+          "duration_seconds": 0.0015,
+          "exit_code": -15,
+          "raw": "",
+          "stderr": "",
+          "stdout": "ASC_SERVER_READY 55973\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "background-server-lifecycle",
+      "status": "PASS",
+      "summary": "background start/check/stop closed the owned port"
+    },
+    {
+      "adapter": "acp-local-terminal",
+      "details": [
+        "result: exit=7 timed_out=False duration=0.019s"
+      ],
+      "duration_seconds": 0.0192,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.0191,
+          "exit_code": 7,
+          "raw": "",
+          "stderr": "",
+          "stdout": "ASC_STDERR_BEFORE_EXIT\nASC_STDOUT_BEFORE_EXIT\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "output-before-exit",
+      "status": "PASS",
+      "summary": "stdout, stderr, and exit status survived"
+    },
+    {
+      "adapter": "acp-local-terminal",
+      "details": [
+        "result: exit=-15 timed_out=True duration=1.005s"
+      ],
+      "duration_seconds": 1.0047,
+      "evidence": {
+        "result": {
+          "duration_seconds": 1.0046,
+          "exit_code": -15,
+          "raw": "",
+          "stderr": "",
+          "stdout": "ASC_STDOUT_BEFORE_KILL\nASC_STDERR_BEFORE_KILL\n",
+          "timed_out": true,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "output-after-kill",
+      "status": "PASS",
+      "summary": "bounded pre-kill output remained available"
+    },
+    {
+      "adapter": "acp-local-terminal",
+      "details": [
+        "before: exit=0 timed_out=False duration=0.043s",
+        "cd_result: exit=0 timed_out=False duration=0.004s",
+        "after: exit=0 timed_out=False duration=0.017s"
+      ],
+      "duration_seconds": 0.064,
+      "evidence": {
+        "after": {
+          "duration_seconds": 0.0174,
+          "exit_code": 0,
+          "raw": "",
+          "stderr": "",
+          "stdout": "/private/var/folders/37/kfjv_xyx15q7vzm1v75jbzhm0000gn/T/asc-cwd-isolation-dmjzkbpi\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        },
+        "before": {
+          "duration_seconds": 0.0425,
+          "exit_code": 0,
+          "raw": "",
+          "stderr": "",
+          "stdout": "/private/var/folders/37/kfjv_xyx15q7vzm1v75jbzhm0000gn/T/asc-cwd-isolation-dmjzkbpi\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        },
+        "cd_result": {
+          "duration_seconds": 0.0039,
+          "exit_code": 0,
+          "raw": "",
+          "stderr": "",
+          "stdout": "",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "cwd-isolation",
+      "status": "PASS",
+      "summary": "cwd stayed isolated across commands"
+    },
+    {
+      "adapter": "acp-local-terminal",
+      "details": [
+        "result: exit=0 timed_out=False duration=0.021s"
+      ],
+      "duration_seconds": 0.0217,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.0214,
+          "exit_code": 0,
+          "raw": "",
+          "stderr": "",
+          "stdout": "ASC_ENV_ABSENT\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "env-boundary",
+      "status": "PASS",
+      "summary": "explicit env boundary excluded host sentinel"
+    },
+    {
+      "adapter": "acp-local-terminal",
+      "details": [
+        "result: exit=0 timed_out=False duration=0.018s"
+      ],
+      "duration_seconds": 0.0185,
+      "evidence": {
+        "result": {
+          "duration_seconds": 0.0185,
+          "exit_code": 0,
+          "raw": "",
+          "stderr": "",
+          "stdout": "ASC_STDIN_TTY=False\nASC_STDOUT_TTY=False\n",
+          "timed_out": false,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "pty-detection",
+      "status": "PASS",
+      "summary": "observed PTY behavior matched adapter declaration"
+    },
+    {
+      "adapter": "acp-local-terminal",
+      "details": [],
+      "duration_seconds": 0.0,
+      "evidence": {},
+      "fixture": "windows-tree-termination",
+      "status": "SKIP",
+      "summary": "Windows-only fixture skipped on this host"
+    }
+  ],
+  "started_at": "2026-06-27T09:59:09Z",
+  "summary": {
+    "ERROR": 0,
+    "FAIL": 0,
+    "PASS": 8,
+    "SKIP": 1,
+    "UNSUPPORTED": 0
+  }
+}
