@@ -1,6 +1,6 @@
 # Discoverability Gate
 
-Status: `PASS` for private incubation readiness and private repository metadata. Public publication is blocked only by the public-owned-repository cooldown and final same-day re-verification.
+Status: `PASS` for public release readiness after final same-day re-verification. Public publication is gated by value, validation, CI, safety, accurate metadata, and discoverability.
 
 ## Problem and Search Terms
 
@@ -31,7 +31,7 @@ Natural search terms included in README, package metadata, and docs:
 - `SECURITY.md`
 - saved reports under `reports/`
 - Private GitHub repository metadata for `itscloud0/agent-shell-contract`
-- GitHub Actions run `28286004494`
+- Current GitHub Actions release-candidate run
 
 ## Distribution Plan
 

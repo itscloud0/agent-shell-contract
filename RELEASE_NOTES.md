@@ -1,6 +1,6 @@
 # agent-shell-contract v0.1.0
 
-Initial private incubation release candidate for `agent-shell-contract`.
+Initial public release of `agent-shell-contract`.
 
 ## Included
 
