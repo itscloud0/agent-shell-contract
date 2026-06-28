@@ -1,6 +1,6 @@
 # Discoverability Gate
 
-Status: `PASS` for private incubation readiness. Public publication still depends on repository creation, CI, metadata verification, and public cooldown.
+Status: `PASS` for private incubation readiness and private repository metadata. Public publication is blocked only by the public-owned-repository cooldown and final same-day re-verification.
 
 ## Problem and Search Terms
 
@@ -30,12 +30,14 @@ Natural search terms included in README, package metadata, and docs:
 - `ADAPTERS.md`
 - `SECURITY.md`
 - saved reports under `reports/`
+- Private GitHub repository metadata for `itscloud0/agent-shell-contract`
+- GitHub Actions run `28286004494`
 
 ## Distribution Plan
 
-Concrete channels and search surfaces after private CI passes:
+Concrete channels and search surfaces after public release:
 
-- GitHub repository description and topics for `coding-agent`, `shell`, `terminal`, `process-cleanup`, `conformance`, `agent-client-protocol`, and `developer-tools`.
+- GitHub repository description and topics already set for `coding-agent`, `shell`, `terminal`, `process-cleanup`, `conformance`, `agent-client-protocol`, and `developer-tools`.
 - PyPI metadata after package release, if packaging is pursued.
 - Issue-derived reports attached to relevant upstream issues only when they reproduce a specific failure.
 - ACP implementer discussions only with concrete adapter findings.
