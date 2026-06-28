@@ -73,6 +73,7 @@ Environment:
 - ACP command: `uv run --python /opt/homebrew/bin/python3.12 --with agent-client-protocol --with-editable . python -m agent_shell_contract run --adapter acp-local-terminal --json reports/acp-local-terminal.json --markdown reports/acp-local-terminal.md`
 - Codex command: `PYTHONPATH=src python3 -m agent_shell_contract run --adapter codex-app-server --json reports/codex-app-server.json --markdown reports/codex-app-server.md`
 - Codex version: `codex-cli 0.133.0`
+- Codex app-server methods tested: `initialize`, `command/exec`, `command/exec/outputDelta`, and `command/exec/terminate`.
 - Platform: `macOS-15.5-arm64-arm-64bit`
 
 Results:
@@ -104,3 +105,35 @@ Gate impact:
 Decision:
 
 Continue to public publication after the final release-candidate CI run passes.
+
+## 2026-06-28 21:28 Europe/Amsterdam
+
+Lifecycle mode: `MAINTAIN`.
+
+Target validation:
+
+- Harden the experimental Codex app-server adapter against schema/version drift.
+- Keep the compatibility claim bounded to the local Codex CLI version and methods tested.
+
+Environment:
+
+- Codex version: `codex-cli 0.133.0`
+- Codex app-server methods tested: `initialize`, `command/exec`, `command/exec/outputDelta`, and `command/exec/terminate`.
+- Live command: `PYTHONPATH=src python3 -m agent_shell_contract run --adapter codex-app-server --format json`
+- Platform: `macOS-15.5-arm64-arm-64bit`
+
+Result:
+
+- `PASS`: 8
+- `SKIP`: 1
+- `FAIL`: 0
+- `ERROR`: 0
+
+Gate impact:
+
+- Codex app-server compatibility guard: `PASS`; the adapter reports JSON-RPC errors, non-object results, missing or mistyped `exitCode` / `stdout` / `stderr`, and malformed output-delta notifications as method-specific compatibility errors instead of silently accepting mismatched response shapes.
+- Stable Codex API support claim: `FAIL`; app-server remains experimental and version-sensitive.
+
+Decision:
+
+Continue maintaining `codex-app-server` as experimental validation evidence only. Do not claim stable Codex API compatibility.

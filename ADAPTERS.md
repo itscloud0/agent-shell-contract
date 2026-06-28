@@ -49,7 +49,14 @@ Experimental adapter over Codex CLI `app-server` `command/exec`.
 
 It uses direct JSON-RPC shell execution and does not create a model turn. The Codex app-server API is experimental, so results should be treated as local validation evidence, not a stable public compatibility claim.
 
-Validated locally with Codex CLI `0.133.0`: 8 fixtures passed and the Windows-only fixture skipped on macOS.
+Validated locally with Codex CLI `0.133.0`: 8 fixtures passed and the Windows-only fixture skipped on macOS. The validation exercised these app-server surfaces:
+
+- `initialize`
+- `command/exec`
+- `command/exec/outputDelta` notifications for background stdout/stderr
+- `command/exec/terminate`
+
+The adapter intentionally fails closed when Codex app-server responses do not match the tested shape. Unsupported JSON-RPC errors, non-object results, missing or incorrectly typed `exitCode` / `stdout` / `stderr`, and malformed output-delta notifications are reported with compatibility errors that name the method and ask the user to verify `codex --version`.
 
 ## Result Interpretation
 

@@ -54,6 +54,8 @@ Experimental Codex app-server adapter, when `codex app-server` is installed:
 agent-shell-contract run --adapter codex-app-server
 ```
 
+This adapter targets the experimental Codex CLI app-server JSON-RPC surface. It reports actionable compatibility errors when response shapes drift; it is not a stable Codex API support claim.
+
 ## Included Fixtures
 
 - `timeout-child-pipe`: timeout must not hang when a child keeps stdout or stderr open.
@@ -71,7 +73,7 @@ agent-shell-contract run --adapter codex-app-server
 - `subprocess-reference`: stdlib baseline using owned temporary directories, process groups, pipes, and local ports.
 - `pydantic-ai-harness`: optional wrapper over Pydantic AI Harness `Shell`; useful for validating a current framework shell implementation without model calls.
 - `acp-local-terminal`: optional adapter using the official `agent-client-protocol` Python schema and ACP terminal method names with a local terminal client. It validates ACP adapter shape without UI automation or model calls; it is not a pass claim for a specific ACP client.
-- `codex-app-server`: experimental adapter over Codex CLI app-server `command/exec`. It runs direct shell commands without model calls, but the app-server surface is experimental.
+- `codex-app-server`: experimental adapter over Codex CLI app-server `command/exec`. It runs direct shell commands without model calls, but the app-server surface is experimental and version-sensitive.
 
 See `ADAPTERS.md` for adapter authoring notes and result interpretation.
 
@@ -96,4 +98,4 @@ Raw JSON and Markdown reports are stored under `reports/` when generated during 
 
 This is not a process manager, sandbox, security scanner, model benchmark, or automatic fix for Codex, Claude Code, Copilot, or ACP clients. Fixtures only create owned temporary files, owned local child processes, and loopback ports. Results can vary by OS process semantics; unsupported platform behavior is reported explicitly.
 
-Windows process-tree behavior is not validated yet. The ACP adapter validates a protocol-shaped local terminal client, not a specific ACP product implementation. The Codex app-server adapter depends on an experimental Codex CLI API.
+Windows process-tree behavior is not validated yet. The ACP adapter validates a protocol-shaped local terminal client, not a specific ACP product implementation. The Codex app-server adapter depends on an experimental Codex CLI API and may need updates when Codex app-server methods or response schemas change.

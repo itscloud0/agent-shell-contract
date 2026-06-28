@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import base64
+import binascii
 import json
 import os
 from pathlib import Path
@@ -13,6 +14,10 @@ import time
 import uuid
 
 from .models import AdapterCapabilities, BackgroundHandle, BackgroundStatus, CommandResult
+
+
+class CodexAppServerProtocolError(RuntimeError):
+    """Raised when the experimental Codex app-server response shape changes."""
 
 
 class CodexAppServerAdapter:
@@ -58,10 +63,10 @@ class CodexAppServerAdapter:
             },
             max(timeout_seconds + 5.0, 10.0),
         )
-        exit_code = int(result.get("exitCode", 0))
+        stdout, stderr, exit_code = _exec_result_fields(result, "command/exec")
         return CommandResult(
-            stdout=result.get("stdout", ""),
-            stderr=result.get("stderr", ""),
+            stdout=stdout,
+            stderr=stderr,
             exit_code=exit_code,
             timed_out=exit_code == 124,
             duration_seconds=time.monotonic() - start,
@@ -135,12 +140,12 @@ class CodexAppServerAdapter:
         for notification in self._rpc.notifications():
             if notification.get("method") != "command/exec/outputDelta":
                 continue
-            params = notification.get("params") or {}
-            if params.get("processId") != process_id:
+            decoded = _decode_output_delta(notification, process_id)
+            if decoded is None:
                 self._rpc.keep_notification(notification)
                 continue
-            chunk = base64.b64decode(params.get("deltaBase64", "")).decode("utf-8", errors="replace")
-            if params.get("stream") == "stderr":
+            stream, chunk = decoded
+            if stream == "stderr":
                 bg.stderr.append(chunk)
             else:
                 bg.stdout.append(chunk)
@@ -186,11 +191,11 @@ class _CodexAppServerRPC:
         request_id = self.send(method, params)
         response = self.wait_response(request_id, timeout)
         if response is None:
-            raise TimeoutError(f"Timed out waiting for {method}")
-        if "error" in response:
-            raise RuntimeError(f"{method} failed: {response['error']}")
-        result = response.get("result")
-        return result if isinstance(result, dict) else {}
+            raise TimeoutError(
+                f"Timed out waiting for Codex app-server `{method}` response after {timeout:.1f}s. "
+                "The Codex app-server surface is experimental; verify `codex --version` and method support."
+            )
+        return _extract_result(response, method)
 
     def wait_response(self, request_id: int, timeout: float) -> dict[str, object] | None:
         deadline = time.monotonic() + timeout
@@ -257,9 +262,93 @@ def _codex_env(env: dict[str, str] | None) -> dict[str, str | None] | None:
 def _response_exit_code(response: dict[str, object] | None) -> int | None:
     if response is None:
         return None
+    result = _extract_result(response, "command/exec")
+    return _expect_int_field(result, "exitCode", "command/exec")
+
+
+def _extract_result(response: dict[str, object], method: str) -> dict[str, object]:
+    if "error" in response:
+        raise CodexAppServerProtocolError(
+            f"Codex app-server `{method}` returned a JSON-RPC error: {_short_json(response['error'])}. "
+            "The app-server API is experimental; verify `codex --version`, method support, and adapter docs."
+        )
     result = response.get("result")
     if not isinstance(result, dict):
-        return None
-    exit_code = result.get("exitCode")
-    return int(exit_code) if exit_code is not None else None
+        raise CodexAppServerProtocolError(
+            f"Codex app-server `{method}` returned unsupported result shape: expected object, "
+            f"got {_type_name(result)} {_short_json(result)}. The app-server API is experimental; "
+            "verify `codex --version`, method support, and adapter docs."
+        )
+    return result
 
+
+def _exec_result_fields(result: dict[str, object], method: str) -> tuple[str, str, int]:
+    return (
+        _expect_str_field(result, "stdout", method),
+        _expect_str_field(result, "stderr", method),
+        _expect_int_field(result, "exitCode", method),
+    )
+
+
+def _decode_output_delta(notification: dict[str, object], process_id: str) -> tuple[str, str] | None:
+    method = "command/exec/outputDelta"
+    params = notification.get("params")
+    if not isinstance(params, dict):
+        raise CodexAppServerProtocolError(
+            f"Codex app-server `{method}` notification is unsupported: expected object params, "
+            f"got {_type_name(params)} {_short_json(params)}. Verify `codex --version` and output stream schema."
+        )
+    notification_process_id = _expect_str_field(params, "processId", method)
+    if notification_process_id != process_id:
+        return None
+    stream = _expect_str_field(params, "stream", method)
+    if stream not in {"stdout", "stderr"}:
+        raise CodexAppServerProtocolError(
+            f"Codex app-server `{method}` notification has unsupported stream {stream!r}; "
+            "expected `stdout` or `stderr`. Verify `codex --version` and output stream schema."
+        )
+    encoded = _expect_str_field(params, "deltaBase64", method)
+    try:
+        chunk = base64.b64decode(encoded, validate=True).decode("utf-8", errors="replace")
+    except (binascii.Error, ValueError) as exc:
+        raise CodexAppServerProtocolError(
+            f"Codex app-server `{method}` notification has invalid base64 `deltaBase64`. "
+            "Verify `codex --version` and output stream schema."
+        ) from exc
+    return stream, chunk
+
+
+def _expect_str_field(data: dict[str, object], field: str, method: str) -> str:
+    value = data.get(field)
+    if not isinstance(value, str):
+        raise CodexAppServerProtocolError(
+            f"Codex app-server `{method}` response is missing string field `{field}`; "
+            f"got {_type_name(value)} {_short_json(value)}. Verify `codex --version` and response schema."
+        )
+    return value
+
+
+def _expect_int_field(data: dict[str, object], field: str, method: str) -> int:
+    value = data.get(field)
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise CodexAppServerProtocolError(
+            f"Codex app-server `{method}` response is missing integer field `{field}`; "
+            f"got {_type_name(value)} {_short_json(value)}. Verify `codex --version` and response schema."
+        )
+    return value
+
+
+def _short_json(value: object, *, limit: int = 240) -> str:
+    try:
+        rendered = json.dumps(value, sort_keys=True)
+    except TypeError:
+        rendered = repr(value)
+    if len(rendered) > limit:
+        return rendered[: limit - 3] + "..."
+    return rendered
+
+
+def _type_name(value: object) -> str:
+    if value is None:
+        return "null"
+    return type(value).__name__
