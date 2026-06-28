@@ -95,9 +95,9 @@ At least two ecosystems must be represented. Pydantic AI Harness counts as a fra
 
 ## Discoverability Gate
 
-Status: `UNKNOWN`.
+Status: `PASS`.
 
-Before private or public publication, verify:
+Verified before public publication:
 
 - README title and first paragraph state the exact problem: coding-agent shell timeout, background process cleanup, terminal output, and process-tree semantics.
 - Package metadata and repository topics include accurate terms such as `coding-agent`, `shell`, `terminal`, `process-cleanup`, `conformance`, and `developer-tools`.

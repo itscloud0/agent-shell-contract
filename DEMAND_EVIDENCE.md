@@ -10,7 +10,7 @@
 - Upstream-insufficiency: `PASS`, narrowly. Client fixes belong upstream, but a shared fixture corpus spans multiple upstreams.
 - Credible distribution path: `PASS`, through affected client/harness issue threads, ACP implementers, Pydantic AI Harness, and agent benchmark/tooling communities. No traction claimed.
 - Measurable success criteria: `PASS`.
-- Discoverability gate: `UNKNOWN`; no README, repository metadata, package metadata, release, or distribution artifacts exist yet.
+- Discoverability gate: `PASS`; README, package metadata, repository metadata, release notes, limitations, and distribution plan now exist without adoption or traction claims.
 
 ## Public Pain Signals
 

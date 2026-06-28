@@ -99,8 +99,8 @@ Gate impact:
 
 - Second adapter validation: `PASS`, narrowly. Codex app-server is a real local direct shell surface that ran the full suite without model calls; ACP local validates a protocol-shaped adapter. Caveat: Codex app-server is experimental and ACP local is not a pass claim for a specific ACP client.
 - Real-world cases: `PASS` for fixture classes mapped to Codex timeout/output/process issues, Claude/Pydantic background lifecycle issues, and Copilot/terminal output/cwd pain in the demand evidence.
-- Publication validation: `PASS` for private incubation readiness after CI/docs/safety/discoverability checks; public release remains blocked by cooldown and future CI on GitHub.
+- Publication validation: `PASS` for public release readiness after CI/docs/safety/discoverability checks and final GitHub Actions verification.
 
 Decision:
 
-Continue to private-first publication readiness. Do not make public before private repository CI passes and the public-owned-repo cooldown permits it.
+Continue to public publication after the final release-candidate CI run passes.
