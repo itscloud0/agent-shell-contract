@@ -137,3 +137,35 @@ Gate impact:
 Decision:
 
 Continue maintaining `codex-app-server` as experimental validation evidence only. Do not claim stable Codex API compatibility.
+
+## 2026-06-29 17:58 Europe/Amsterdam
+
+Lifecycle mode: `MAINTAIN`.
+
+Target validation:
+
+- Reproduce the Pydantic AI Harness `output-after-kill` contract failure from owner-created issue #2.
+- Produce a minimal upstream-ready report without claiming maintainer interest or doing external upstream work from the OWNED lane.
+
+Environment:
+
+- Command: `uv run --python /opt/homebrew/bin/python3.12 --with pydantic-ai-harness --with-editable . python -m agent_shell_contract run --adapter pydantic-ai-harness --fixture output-after-kill --json reports/pydantic-ai-harness-output-after-kill.json --markdown reports/pydantic-ai-harness-output-after-kill.md`
+- Pydantic AI Harness version: `0.4.0`
+- Python: `3.12.11`
+- Platform: `macOS-15.5-arm64-arm-64bit`
+
+Result:
+
+- `FAIL`: 1
+- Fixture: `output-after-kill`
+- Observed result: timeout returned promptly, but `stdout` and `stderr` were empty and raw output was only `[Command timed out after 1.0s]`.
+
+Saved reports:
+
+- `reports/pydantic-ai-harness-output-after-kill.json`
+- `reports/pydantic-ai-harness-output-after-kill.md`
+- `reports/pydantic-ai-harness-output-after-kill-report.md`
+
+Decision:
+
+Keep the report local and upstream-ready. Do not open a Pydantic AI Harness upstream issue from this OWNED-lane run; a separate UPSTREAM run should first check that repository's contribution rules and current behavior.

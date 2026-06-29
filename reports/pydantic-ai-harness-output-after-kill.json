@@ -1,0 +1,45 @@
+{
+  "adapter": "pydantic-ai-harness",
+  "capabilities": {
+    "allocates_pty": false,
+    "name": "pydantic-ai-harness",
+    "platform": "darwin",
+    "supports_background": true,
+    "supports_env_override": true,
+    "supports_sticky_cwd": true
+  },
+  "duration_seconds": 1.0094,
+  "platform": "macOS-15.5-arm64-arm-64bit",
+  "python_version": "3.12.11",
+  "results": [
+    {
+      "adapter": "pydantic-ai-harness",
+      "details": [
+        "result: exit=None timed_out=True duration=1.009s"
+      ],
+      "duration_seconds": 1.0089,
+      "evidence": {
+        "result": {
+          "duration_seconds": 1.0088,
+          "exit_code": null,
+          "raw": "[Command timed out after 1.0s]",
+          "stderr": "",
+          "stdout": "",
+          "timed_out": true,
+          "unsupported_reason": null
+        }
+      },
+      "fixture": "output-after-kill",
+      "status": "FAIL",
+      "summary": "bounded pre-kill output was lost"
+    }
+  ],
+  "started_at": "2026-06-29T15:58:00Z",
+  "summary": {
+    "ERROR": 0,
+    "FAIL": 1,
+    "PASS": 0,
+    "SKIP": 0,
+    "UNSUPPORTED": 0
+  }
+}
