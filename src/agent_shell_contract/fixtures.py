@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import base64
 from dataclasses import dataclass
 import os
 from pathlib import Path
@@ -307,10 +308,11 @@ FIXTURES: tuple[Fixture, ...] = (
 
 def _py(code: str) -> str:
     normalized = textwrap.dedent(code).strip()
-    args = [sys.executable, "-c", normalized]
     if os.name == "nt":
-        return subprocess.list2cmdline(args)
-    return shlex.join(args)
+        encoded = base64.b64encode(normalized.encode("utf-8")).decode("ascii")
+        bootstrap = f"import base64;exec(compile(base64.b64decode('{encoded}'),'<fixture>','exec'))"
+        return subprocess.list2cmdline([sys.executable, "-c", bootstrap])
+    return shlex.join([sys.executable, "-c", normalized])
 
 
 def _minimal_env() -> dict[str, str]:
