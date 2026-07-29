@@ -32,4 +32,4 @@ This benchmark is a reproducible fixture-run summary, not a claim of adoption or
 
 - Reproducible fixture benchmark: `PASS` for adapters that run locally.
 - Workflow improvement: `PASS` for replacing ad hoc `ps`/`lsof`/kill/repro scripts with one command and machine-readable reports.
-- Windows coverage: `UNKNOWN` until Windows CI or manual validation runs the Windows fixture.
+- Windows coverage: `PASS` in GitHub Actions run `30435210271`; the reference adapter passed all 9 fixtures on `windows-latest` for Python 3.10, 3.11, and 3.12.

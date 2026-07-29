@@ -36,3 +36,8 @@ Exact next action:
 
 Install or otherwise provide Pydantic AI Harness in an isolated environment, run the optional adapter against the fixture suite, then decide whether to continue to second-adapter validation or reposition upstream if the useful result is Pydantic-only.
 
+## 2026-07-29 - Windows CI maintenance
+
+- Added Windows tree termination with `taskkill /PID <pid> /T /F` and a Windows-safe encoded Python fixture command.
+- Expanded CI to `windows-latest` for Python 3.10, 3.11, and 3.12.
+- Corrective run `30435210271` passed all 9 matrix jobs plus the optional-adapter smoke job; owner issue #1 was closed.

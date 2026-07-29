@@ -18,7 +18,7 @@ Initial public release of `agent-shell-contract`.
 - Pydantic AI Harness validation produced an actionable `output-after-kill` failure: timeout returns promptly but does not include bounded pre-timeout stdout/stderr in the timeout result.
 - Codex app-server validation passed 8 non-Windows fixtures locally on Codex CLI `0.133.0`; app-server remains experimental.
 - ACP local terminal validation passed 8 non-Windows fixtures locally using the official Python schema package; this validates adapter shape, not a specific ACP client product.
-- Windows process-tree behavior is not validated in CI yet.
+- Windows process-tree behavior is covered by the reference adapter in CI run `30435210271` across Python 3.10, 3.11, and 3.12 on `windows-latest`.
 - Codex app-server validation depends on an experimental local Codex CLI API.
 
 ## Limitations

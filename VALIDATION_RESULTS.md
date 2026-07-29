@@ -169,3 +169,36 @@ Saved reports:
 Decision:
 
 Keep the report local and upstream-ready. Do not open a Pydantic AI Harness upstream issue from this OWNED-lane run; a separate UPSTREAM run should first check that repository's contribution rules and current behavior.
+
+## 2026-07-29 10:24 Europe/Amsterdam
+
+Lifecycle mode: `MAINTAIN`.
+
+Target validation:
+
+- Complete owner issue #1 by validating the Windows process-tree fixture in hosted CI.
+- Keep the Windows claim limited to the reference adapter and the tested GitHub Actions runner/Python versions.
+
+Implementation:
+
+- Commit `7d3b1f9` added Windows `taskkill /PID <pid> /T /F` tree termination and the `windows-latest` matrix.
+- Commit `3c6a597` fixed Windows shell quoting by base64-encoding fixture Python source before the `-c` bootstrap; this was required after the first Windows matrix run failed in unit tests.
+
+Environment:
+
+- GitHub Actions run `30435210271` on `windows-latest` with Python 3.10, 3.11, and 3.12.
+- Local macOS Python 3.12.11 verification: 16 unittests, compileall, direct Windows-style encoded-command smoke, reference suite `8 PASS` / `1 SKIP`, `git diff --check`, and scoped credential scan.
+
+Result:
+
+- `PASS`: all 9 matrix jobs completed successfully, including all three Windows jobs and the `windows-tree-termination` fixture; the separate optional-adapter smoke job also completed successfully.
+- The original failure was Windows-incompatible quoting of embedded Python `-c` source; the encoded bootstrap correction passed the rerun.
+
+Public action:
+
+- Pushed `3c6a597` to `main`.
+- Closed owner issue #1 with the implementation and CI evidence.
+
+Decision:
+
+Maintain at low intensity. Do not claim Windows behavior for other adapters or client products from this reference-adapter result.
