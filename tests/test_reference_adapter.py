@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import asyncio
 import unittest
+from unittest.mock import patch
 
-from agent_shell_contract.adapters import ReferenceSubprocessAdapter
+from agent_shell_contract.adapters import ReferenceSubprocessAdapter, _terminate_windows_process_tree
 from agent_shell_contract.models import FixtureStatus
 from agent_shell_contract.runner import run_suite
 
@@ -35,7 +36,17 @@ class ReferenceAdapterTests(unittest.TestCase):
 
         self.assertEqual(asyncio.run(run()), FixtureStatus.PASS)
 
+    def test_windows_tree_termination_uses_taskkill_tree_mode(self) -> None:
+        with patch("agent_shell_contract.adapters.subprocess.run") as run:
+            _terminate_windows_process_tree(123)
+
+        run.assert_called_once_with(
+            ["taskkill", "/PID", "123", "/T", "/F"],
+            capture_output=True,
+            check=False,
+            timeout=5.0,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
-

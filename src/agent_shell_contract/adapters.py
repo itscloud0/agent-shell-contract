@@ -277,6 +277,11 @@ async def _terminate_async_process(proc: asyncio.subprocess.Process, *, graceful
             os.killpg(proc.pid, sig)
         except ProcessLookupError:
             return
+    elif os.name == "nt":
+        # Terminating the shell PID alone leaves Python children alive on Windows.
+        # taskkill's tree mode is the Windows equivalent of killing the POSIX
+        # process group created above.
+        await asyncio.to_thread(_terminate_windows_process_tree, proc.pid)
     else:
         if graceful:
             proc.terminate()
@@ -292,6 +297,8 @@ def _terminate_popen(proc: subprocess.Popen[bytes], timeout_seconds: float) -> N
             os.killpg(proc.pid, signal.SIGTERM)
         except ProcessLookupError:
             return
+    elif os.name == "nt":
+        _terminate_windows_process_tree(proc.pid)
     else:
         proc.terminate()
     try:
@@ -304,12 +311,30 @@ def _terminate_popen(proc: subprocess.Popen[bytes], timeout_seconds: float) -> N
             os.killpg(proc.pid, signal.SIGKILL)
         except ProcessLookupError:
             return
+    elif os.name == "nt":
+        _terminate_windows_process_tree(proc.pid)
     else:
         proc.kill()
     try:
         proc.wait(timeout=timeout_seconds)
     except subprocess.TimeoutExpired:
         pass
+
+
+def _terminate_windows_process_tree(pid: int) -> None:
+    if pid <= 0:
+        return
+    try:
+        subprocess.run(
+            ["taskkill", "/PID", str(pid), "/T", "/F"],
+            capture_output=True,
+            check=False,
+            timeout=5.0,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        # The caller still waits for the original process and can report a
+        # failed fixture if a child remains alive.
+        return
 
 
 def _decode(data: bytes | None) -> str:
