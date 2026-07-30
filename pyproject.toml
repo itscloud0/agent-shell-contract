@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agent-shell-contract"
-version = "0.1.0"
+version = "0.2.0"
 description = "Issue-derived shell semantics contract tests for coding-agent shell runners."
 readme = "README.md"
 requires-python = ">=3.10"

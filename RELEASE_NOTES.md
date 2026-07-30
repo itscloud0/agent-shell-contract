@@ -1,3 +1,24 @@
+# agent-shell-contract v0.2.0
+
+This release packages the verified Windows reference-adapter support added after the initial public release.
+
+## Included
+
+- Windows process-tree termination through `taskkill /PID <pid> /T /F` for the reference adapter.
+- Windows-safe encoded fixture commands that preserve embedded quotes.
+- `windows-latest` CI coverage for Python 3.10, 3.11, and 3.12, with all nine reference fixtures passing.
+- Actionable compatibility errors and bounded documentation for the experimental Codex app-server adapter.
+
+## Validation
+
+- Corrective Windows matrix run `30435210271`: all nine matrix jobs passed.
+- Optional-adapter smoke run `30435595844`: passed.
+- This release's package version is `0.2.0`; the Windows claim remains limited to the reference adapter and tested GitHub Actions runners.
+
+## Limitations
+
+The Codex app-server adapter remains experimental and version-sensitive. Windows behavior is not claimed for other adapters or client products.
+
 # agent-shell-contract v0.1.0
 
 Initial public release of `agent-shell-contract`.

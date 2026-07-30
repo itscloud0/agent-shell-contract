@@ -175,7 +175,7 @@ class _CodexAppServerRPC:
         self._lock = threading.Lock()
         self._reader = threading.Thread(target=self._read_stdout, daemon=True)
         self._reader.start()
-        self.request("initialize", {"clientInfo": {"name": "agent-shell-contract", "version": "0.1.0"}}, 5.0)
+        self.request("initialize", {"clientInfo": {"name": "agent-shell-contract", "version": "0.2.0"}}, 5.0)
 
     def send(self, method: str, params: dict[str, object]) -> int:
         with self._lock:
