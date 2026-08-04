@@ -6,7 +6,28 @@ It runs issue-derived fixtures against a shell-runner adapter and emits concise 
 
 ## Quickstart
 
-Install from a local checkout:
+Python 3.10 or newer is required. To run the released suite without a local checkout:
+
+```bash
+python3 -m pip install "git+https://github.com/itscloud0/agent-shell-contract.git@v0.2.0"
+agent-shell-contract run --adapter subprocess-reference
+```
+
+For an isolated command-line install with [uv](https://docs.astral.sh/uv/):
+
+```bash
+uv tool install "git+https://github.com/itscloud0/agent-shell-contract.git@v0.2.0"
+agent-shell-contract run --adapter subprocess-reference
+```
+
+For a one-off run without a persistent install:
+
+```bash
+uvx --from "git+https://github.com/itscloud0/agent-shell-contract.git@v0.2.0" \
+  agent-shell-contract run --adapter subprocess-reference
+```
+
+For local development, install from a checkout:
 
 ```bash
 python3 -m pip install -e .
