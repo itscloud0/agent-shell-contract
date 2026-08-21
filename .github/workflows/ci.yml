@@ -26,6 +26,18 @@ jobs:
       - name: Run reference contract suite
         run: agent-shell-contract run --adapter subprocess-reference
 
+  public-install:
+    name: Public v0.2.0 install smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install immutable public release
+        run: python -m pip install "git+https://github.com/itscloud0/agent-shell-contract.git@c018e00433d09a82c71a83d648d214d296b90f6b"
+      - name: Run installed public release suite
+        run: agent-shell-contract run --adapter subprocess-reference
+
   optional-adapters:
     name: Optional adapter smoke tests
     runs-on: ubuntu-latest
