@@ -13,6 +13,7 @@ Local verification:
 - `BLOCKED`: the full 17-test suite's `background-server-lifecycle` test is denied by the host's macOS sandbox with `PermissionError: [Errno 1] Operation not permitted` before it can bind its owned port; this is an environment limitation, not a workflow-pin failure.
 - `PASS`: Python compileall, workflow YAML parsing with the installed Ruby/Psych version, `git diff --check`, and a scoped mutable-action-ref scan with no findings.
 - Upstream tag verification: `actions/checkout` `v4` resolves to `11d5960a326750d5838078e36cf38b85af677262`; `actions/setup-python` `v5` resolves to `a26af69be951a213d495a4c3e4e4022e16d87065`.
+- Public verification: Actions run `33732183838` passed all nine Python 3.10/3.11/3.12 Ubuntu/macOS/Windows matrix jobs, the public release install smoke, and the optional adapter smoke job.
 
 Adoption remains `UNKNOWN`; this maintenance change improves CI reproducibility and does not establish product usage.
 
