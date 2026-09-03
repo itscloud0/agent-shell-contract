@@ -1,5 +1,21 @@
 # Validation Results: agent-shell-contract
 
+## 2026-09-03
+
+Maintenance validation:
+
+- Replaced all five mutable `actions/checkout@v4` and `actions/setup-python@v5` workflow refs with the verified full commit pins for the same action versions.
+- Added `tests/test_workflow.py` to enumerate every workflow action call and fail on pin drift or a non-40-character ref.
+
+Local verification:
+
+- `PASS`: 16 focused unit tests, including the workflow-pin regression and all non-background reference-adapter tests.
+- `BLOCKED`: the full 17-test suite's `background-server-lifecycle` test is denied by the host's macOS sandbox with `PermissionError: [Errno 1] Operation not permitted` before it can bind its owned port; this is an environment limitation, not a workflow-pin failure.
+- `PASS`: Python compileall, workflow YAML parsing with the installed Ruby/Psych version, `git diff --check`, and a scoped mutable-action-ref scan with no findings.
+- Upstream tag verification: `actions/checkout` `v4` resolves to `11d5960a326750d5838078e36cf38b85af677262`; `actions/setup-python` `v5` resolves to `a26af69be951a213d495a4c3e4e4022e16d87065`.
+
+Adoption remains `UNKNOWN`; this maintenance change improves CI reproducibility and does not establish product usage.
+
 ## 2026-06-27 11:43 Europe/Amsterdam
 
 Lifecycle mode: `VALIDATE`.
