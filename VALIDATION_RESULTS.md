@@ -10,7 +10,9 @@ Implementation: README documents the immutable GitHub source archive for release
 
 Local verification: Python 3.14.6 passed all 18 tests, including the archive/workflow regression; compileall, workflow YAML parsing, `git diff --check`, and the mutable-action and credential-pattern scans passed. A clean temporary virtual environment installed the exact public archive, reported package version `0.2.0`, listed fixtures, and passed the `output-before-exit` reference smoke. The archive endpoint returned HTTP 200 and the release tag resolves to the same commit.
 
-Adoption remains `UNKNOWN`; clone traffic and release readiness do not establish product usage. Public Actions verification is recorded after the pushed commit completes.
+Public verification: Actions run `34631891779` completed successfully for `f22dd0d`, including the new archive-install job and the existing Python 3.10/3.11/3.12 Ubuntu/macOS/Windows matrix, public-install, and optional-adapter jobs. Remote `main` resolves to `f22dd0d111cceca4ba03ff66fcf3723523b70356`.
+
+Adoption remains `UNKNOWN`; clone traffic and release readiness do not establish product usage.
 
 ## 2026-09-03
 
