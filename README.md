@@ -6,7 +6,14 @@ It runs issue-derived fixtures against a shell-runner adapter and emits concise 
 
 ## Quickstart
 
-Python 3.10 or newer is required. To run the released suite without a local checkout:
+Python 3.10 or newer is required. To run the released suite without Git or a local checkout:
+
+```bash
+python3 -m pip install "https://github.com/itscloud0/agent-shell-contract/archive/c018e00433d09a82c71a83d648d214d296b90f6b.tar.gz"
+agent-shell-contract run --adapter subprocess-reference
+```
+
+If Git is available, the same release can also be installed by tag:
 
 ```bash
 python3 -m pip install "git+https://github.com/itscloud0/agent-shell-contract.git@v0.2.0"

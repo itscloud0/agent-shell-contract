@@ -1,5 +1,17 @@
 # Validation Results: agent-shell-contract
 
+## 2026-09-11 - Checkout-free public archive install
+
+Selection evidence: the public `v0.2.0` release has no assets, PyPI returns HTTP 404, and the README's released-install paths required Git. The last-known awareness snapshot is 78 clones / 16 unique cloners.
+
+User outcome: a maintainer can install the exact released shell-contract CLI without Git, a repository checkout, or PyPI publication; CI independently verifies that path.
+
+Implementation: README documents the immutable GitHub source archive for release commit `c018e00433d09a82c71a83d648d214d296b90f6b`; the no-checkout `public-archive-install` job installs that archive and runs the reference suite; `tests/test_workflow.py` prevents the README and workflow from drifting to another archive or adding checkout to the archive job.
+
+Local verification: Python 3.14.6 passed all 18 tests, including the archive/workflow regression; compileall, workflow YAML parsing, `git diff --check`, and the mutable-action and credential-pattern scans passed. A clean temporary virtual environment installed the exact public archive, reported package version `0.2.0`, listed fixtures, and passed the `output-before-exit` reference smoke. The archive endpoint returned HTTP 200 and the release tag resolves to the same commit.
+
+Adoption remains `UNKNOWN`; clone traffic and release readiness do not establish product usage. Public Actions verification is recorded after the pushed commit completes.
+
 ## 2026-09-03
 
 Maintenance validation:

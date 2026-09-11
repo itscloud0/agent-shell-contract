@@ -2,6 +2,12 @@
 
 This release packages the verified Windows reference-adapter support added after the initial public release.
 
+## Post-release maintenance
+
+- Added a checkout-free install path from the immutable `v0.2.0` source archive for users without Git or PyPI access.
+- Added a no-checkout GitHub Actions smoke test and regression coverage so the documented archive stays pinned to the released commit.
+- This maintenance update does not change the `v0.2.0` package version or release tag.
+
 ## Included
 
 - Windows process-tree termination through `taskkill /PID <pid> /T /F` for the reference adapter.
