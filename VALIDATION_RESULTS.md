@@ -10,6 +10,8 @@ Implementation: README documents the exact `v0.2.0` wheel and source-distributio
 
 Local verification: Python 3.14.6 passed all 19 tests, compileall, workflow YAML parsing, `git diff --check`, and a scoped credential-pattern scan. Both release asset URLs returned HTTP 200; the wheel was 23,066 bytes and the source distribution was 22,410 bytes. Separate clean virtual environments installed each asset, reported package version `0.2.0`, listed fixtures, and passed the CLI help smoke.
 
+Public verification: Actions run `35378627603` passed all 12 jobs for commit `eae416e`, including the Python 3.10/3.11/3.12 Ubuntu/macOS/Windows matrix, public release install, immutable archive install, and optional adapter smokes. GitHub reported Node 20 action-runtime and future Ubuntu label migration warnings; no job failure or change-specific warning occurred.
+
 ## 2026-09-11 - Checkout-free public archive install
 
 Selection evidence: the public `v0.2.0` release has no assets, PyPI returns HTTP 404, and the README's released-install paths required Git. The last-known awareness snapshot is 78 clones / 16 unique cloners.
