@@ -13,6 +13,20 @@ python3 -m pip install "https://github.com/itscloud0/agent-shell-contract/archiv
 agent-shell-contract run --adapter subprocess-reference
 ```
 
+The `v0.2.0` release also includes a prebuilt wheel and source distribution. Use the wheel for the fastest install:
+
+```bash
+python3 -m pip install "https://github.com/itscloud0/agent-shell-contract/releases/download/v0.2.0/agent_shell_contract-0.2.0-py3-none-any.whl"
+agent-shell-contract run --adapter subprocess-reference
+```
+
+If the wheel is not suitable for your platform, install the release source distribution instead:
+
+```bash
+python3 -m pip install "https://github.com/itscloud0/agent-shell-contract/releases/download/v0.2.0/agent_shell_contract-0.2.0.tar.gz"
+agent-shell-contract run --adapter subprocess-reference
+```
+
 If Git is available, the same release can also be installed by tag:
 
 ```bash

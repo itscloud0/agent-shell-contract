@@ -1,5 +1,15 @@
 # Validation Results: agent-shell-contract
 
+## 2026-09-18 - Direct release-asset onboarding
+
+Selection evidence: the public `v0.2.0` release has a wheel and source distribution, but the README exposed only Git and source-archive install paths. The latest known awareness window is 9 views / 2 unique viewers and 82 clones / 26 unique cloners through 2026-09-14; these are awareness signals, not confirmed usage.
+
+User outcome: a maintainer can install the exact released shell-contract CLI from a prebuilt wheel, or from the release source distribution, without Git, a checkout, or PyPI publication.
+
+Implementation: README documents the exact `v0.2.0` wheel and source-distribution URLs; `tests/test_workflow.py` prevents the two release-asset URLs from drifting or being duplicated.
+
+Local verification: Python 3.14.6 passed all 19 tests, compileall, workflow YAML parsing, `git diff --check`, and a scoped credential-pattern scan. Both release asset URLs returned HTTP 200; the wheel was 23,066 bytes and the source distribution was 22,410 bytes. Separate clean virtual environments installed each asset, reported package version `0.2.0`, listed fixtures, and passed the CLI help smoke.
+
 ## 2026-09-11 - Checkout-free public archive install
 
 Selection evidence: the public `v0.2.0` release has no assets, PyPI returns HTTP 404, and the README's released-install paths required Git. The last-known awareness snapshot is 78 clones / 16 unique cloners.

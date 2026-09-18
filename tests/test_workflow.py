@@ -40,6 +40,20 @@ class WorkflowTests(unittest.TestCase):
         self.assertNotIn("actions/checkout@", archive_job)
         self.assertIn("agent-shell-contract run --adapter subprocess-reference", archive_job)
 
+    def test_release_assets_are_pinned_and_documented(self) -> None:
+        readme = (Path(__file__).parents[1] / "README.md").read_text()
+        asset_urls = (
+            "https://github.com/itscloud0/agent-shell-contract/releases/download/"
+            "v0.2.0/agent_shell_contract-0.2.0-py3-none-any.whl",
+            "https://github.com/itscloud0/agent-shell-contract/releases/download/"
+            "v0.2.0/agent_shell_contract-0.2.0.tar.gz",
+        )
+
+        for asset_url in asset_urls:
+            self.assertEqual(readme.count(asset_url), 1)
+        self.assertIn("prebuilt wheel", readme)
+        self.assertIn("release source distribution", readme)
+
 
 if __name__ == "__main__":
     unittest.main()
