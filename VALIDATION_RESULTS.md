@@ -1,5 +1,19 @@
 # Validation Results: agent-shell-contract
 
+## 2026-09-23 - Primary public wheel onboarding
+
+Selection evidence: the public `v0.2.0` release has a verified wheel and source distribution; the README exposed both but led the quickstart with the source archive. The current authenticated window through 2026-09-22 reports 0 views / 0 unique viewers and 104 clones / 35 unique cloners. These are awareness signals, not confirmed usage.
+
+User outcome: a maintainer can copy the first quickstart and install the exact released shell-contract CLI from the prebuilt wheel without Git, a checkout, or PyPI; CI now exercises that same public URL.
+
+Implementation: README now leads with the exact wheel, keeps the source distribution as the platform fallback, and retains the immutable archive for environments that can build from source. Added a checkout-free `public-wheel-install` job and regression coverage for its pinned URL, no-checkout shape, and README ordering.
+
+Local verification: Python 3.14.6 passed all 20 tests, compileall, workflow YAML parsing, `git diff --check`, and a scoped credential-pattern scan with 0 findings. The public wheel URL returned HTTP 200 and 23,066 bytes. A separate clean virtual environment installed `agent-shell-contract==0.2.0`, listed fixtures, and passed the `output-before-exit` reference smoke.
+
+Public verification: pending the post-push Actions run.
+
+Adoption remains `UNKNOWN`; clone traffic is an awareness signal and does not establish product usage.
+
 ## 2026-09-18 - Direct release-asset onboarding
 
 Selection evidence: the public `v0.2.0` release has a wheel and source distribution, but the README exposed only Git and source-archive install paths. The latest known awareness window is 9 views / 2 unique viewers and 82 clones / 26 unique cloners through 2026-09-14; these are awareness signals, not confirmed usage.

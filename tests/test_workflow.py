@@ -17,6 +17,7 @@ class WorkflowTests(unittest.TestCase):
                 "actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
                 "actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
                 "actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+                "actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
                 "actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
                 "actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
             ],
@@ -40,6 +41,23 @@ class WorkflowTests(unittest.TestCase):
         self.assertNotIn("actions/checkout@", archive_job)
         self.assertIn("agent-shell-contract run --adapter subprocess-reference", archive_job)
 
+    def test_public_wheel_install_is_pinned_and_checkout_free(self) -> None:
+        root = Path(__file__).parents[1]
+        workflow = (root / ".github" / "workflows" / "ci.yml").read_text()
+        readme = (root / "README.md").read_text()
+        wheel_url = (
+            "https://github.com/itscloud0/agent-shell-contract/releases/download/"
+            "v0.2.0/agent_shell_contract-0.2.0-py3-none-any.whl"
+        )
+        wheel_job = workflow.split("  public-wheel-install:", 1)[1].split(
+            "  public-archive-install:", 1
+        )[0]
+
+        self.assertEqual(readme.count(wheel_url), 1)
+        self.assertEqual(wheel_job.count(wheel_url), 1)
+        self.assertNotIn("actions/checkout@", wheel_job)
+        self.assertIn("agent-shell-contract run --adapter subprocess-reference", wheel_job)
+
     def test_release_assets_are_pinned_and_documented(self) -> None:
         readme = (Path(__file__).parents[1] / "README.md").read_text()
         asset_urls = (
@@ -53,6 +71,7 @@ class WorkflowTests(unittest.TestCase):
             self.assertEqual(readme.count(asset_url), 1)
         self.assertIn("prebuilt wheel", readme)
         self.assertIn("release source distribution", readme)
+        self.assertLess(readme.index(asset_urls[0]), readme.index("source archive"))
 
 
 if __name__ == "__main__":

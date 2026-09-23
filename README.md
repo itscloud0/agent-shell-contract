@@ -6,24 +6,24 @@ It runs issue-derived fixtures against a shell-runner adapter and emits concise 
 
 ## Quickstart
 
-Python 3.10 or newer is required. To run the released suite without Git or a local checkout:
-
-```bash
-python3 -m pip install "https://github.com/itscloud0/agent-shell-contract/archive/c018e00433d09a82c71a83d648d214d296b90f6b.tar.gz"
-agent-shell-contract run --adapter subprocess-reference
-```
-
-The `v0.2.0` release also includes a prebuilt wheel and source distribution. Use the wheel for the fastest install:
+Python 3.10 or newer is required. To run the released suite without Git, a local checkout, or PyPI, install the exact prebuilt wheel:
 
 ```bash
 python3 -m pip install "https://github.com/itscloud0/agent-shell-contract/releases/download/v0.2.0/agent_shell_contract-0.2.0-py3-none-any.whl"
 agent-shell-contract run --adapter subprocess-reference
 ```
 
-If the wheel is not suitable for your platform, install the release source distribution instead:
+If the wheel is not suitable for your platform, install the matching release source distribution instead:
 
 ```bash
 python3 -m pip install "https://github.com/itscloud0/agent-shell-contract/releases/download/v0.2.0/agent_shell_contract-0.2.0.tar.gz"
+agent-shell-contract run --adapter subprocess-reference
+```
+
+If Git and a compiler are available, the same release can also be installed from the immutable source archive:
+
+```bash
+python3 -m pip install "https://github.com/itscloud0/agent-shell-contract/archive/c018e00433d09a82c71a83d648d214d296b90f6b.tar.gz"
 agent-shell-contract run --adapter subprocess-reference
 ```
 
