@@ -10,7 +10,7 @@ Implementation: README now leads with the exact wheel, keeps the source distribu
 
 Local verification: Python 3.14.6 passed all 20 tests, compileall, workflow YAML parsing, `git diff --check`, and a scoped credential-pattern scan with 0 findings. The public wheel URL returned HTTP 200 and 23,066 bytes. A separate clean virtual environment installed `agent-shell-contract==0.2.0`, listed fixtures, and passed the `output-before-exit` reference smoke.
 
-Public verification: pending the post-push Actions run.
+Public verification: Actions run `35835955110` passed all 13 jobs for `b2b8e4e`, including the Python 3.10/3.11/3.12 Ubuntu/macOS/Windows matrix, Git install, wheel install, immutable archive install, and optional-adapter smokes. GitHub reported only pre-existing Node.js 20 and `ubuntu-latest` migration warnings; no change-specific failure occurred.
 
 Adoption remains `UNKNOWN`; clone traffic is an awareness signal and does not establish product usage.
 
